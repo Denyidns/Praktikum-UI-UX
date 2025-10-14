@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay using QuidLink (Output)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            border: 1px solid #ccc;
+            width: 800px;
+            box-sizing: border-box;
+            padding: 0;
+        }
+
+        /* Navigasi Atas */
+        .navbar {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 20px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: black;
+            padding: 0 10px;
+            border-right: 1px solid #ccc;
+        }
+
+        .navbar a:last-child {
+            border-right: none;
+        }
+
+        /* Konten Utama Form */
+        .main-content {
+            padding: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .left-panel {
+            flex: 1;
+            margin-right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .image-placeholder {
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        /* Efek silang miring (X) */
+        .image-placeholder::before,
+        .image-placeholder::after {
+            content: '';
+            position: absolute;
+            width: 90%;
+            height: 1px;
+            background: black;
+        }
+
+        .image-placeholder::before {
+            transform: rotate(45deg);
+        }
+
+        .image-placeholder::after {
+            transform: rotate(-45deg);
+        }
+        
+        /* Tombol upload disembunyikan di output */
+        .upload-button {
+            display: none; 
+        }
+
+        .right-panel {
+            flex: 3;
+            display: grid;
+            grid-template-columns: 150px auto;
+            gap: 5px 10px;
+        }
+
+        .right-panel label {
+            grid-column: 1 / 2;
+            text-align: right;
+            align-self: flex-start;
+            padding-top: 5px;
+        }
+
+        .right-panel input[type="text"],
+        .right-panel select,
+        .right-panel textarea {
+            grid-column: 2 / 3;
+            padding: 5px;
+            border: 1px solid black;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .right-panel textarea {
+            resize: none;
+            height: 80px;
+        }
+        
+        /* Penyesuaian khusus untuk output.html */
+        .total-amount {
+            grid-column: 2 / 3;
+            font-weight: bold;
+            align-self: center;
+            padding-left: 5px;
+        }
+
+        .checkbox-group {
+            grid-column: 1 / 3;
+            /* Pindahkan ke kanan agar sejajar dengan input */
+            padding-left: 160px; 
+            margin-top: 5px; 
+            margin-bottom: 10px;
+        }
+        
+        .checkbox-group div {
+            margin-bottom: 5px;
+        }
+
+
+        /* Bagian Bawah: Kontak */
+        .contact-section {
+            display: grid;
+            grid-template-columns: 150px auto;
+            gap: 5px 10px;
+            margin-top: 20px;
+        }
+
+        .contact-section label {
+            grid-column: 1 / 2;
+            text-align: right;
+            align-self: center;
+        }
+
+        .contact-section input[type="text"] {
+            grid-column: 2 / 3;
+            padding: 5px;
+            border: 1px solid black;
+            box-sizing: border-box;
+            width: 100%;
+        }
+        
+        .divider {
+            grid-column: 1 / 3;
+            height: 1px;
+            background-color: #ccc;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Tombol Aksi */
+        .button-container {
+            grid-column: 1 / 3;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .quidlink-button {
+            background-color: #008000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container output-section">
+        <div class="navbar">
+            <a href="#">Home</a> | 
+            <a href="#">Register</a> | 
+            <a href="#">Policy</a> | 
+            <a href="#">About</a>
+        </div>
+
+        <div class="main-content">
+            <div class="form-row">
+                <div class="left-panel">
+                    <div class="image-placeholder"></div>
+                </div>
+
+                <div class="right-panel">
+                    <label>Title Here</label>
+                    <input type="text" id="title-out" value="" readonly>
+
+                    <label>Description</label>
+                    <textarea id="description-out" readonly></textarea>
+                    
+                    <label>Total Amount</label>
+                    <div class="total-amount" id="total-amount-out">£800</div>
+                    
+                    <label>Pay to</label>
+                    <input type="text" id="pay-to-out" value="" readonly>
+
+                    <label for="payment-type">Payment Type</label>
+                    <select id="payment-type">
+                        <option value="visa-debit" selected>Visa Debit</option>
+                        <option value="mastercard">Mastercard</option>
+                        <option value="gopay">Gopay</option>
+                    </select>
+
+                    <label>Account Holder</label>
+                    <input type="text" id="account-holder-out" value="">
+                    
+                    <label>Account No</label>
+                    <input type="text" id="account-no-out" value="">
+
+                    <div class="checkbox-group">
+                        <div>
+                            <input type="checkbox" id="send-mobile-out" checked>
+                            <label for="send-mobile-out">Send to Mobile Phone</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="email-copy" checked>
+                            <label for="email-copy">Email me copy of transaction</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-section">
+                <label>Send to Mobile Phone</label>
+                <input type="text" id="mobile-phone-out" value="">
+
+                <label>Send to Email</label>
+                <input type="text" id="email-out" value="">
+                
+                <div class="divider"></div>
+                
+                <div class="button-container">
+                    <button class="quidlink-button">Pay using QuidLink</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk mendapatkan nilai parameter dari URL
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Ambil data dari URL dan isi ke elemen-elemen di halaman output
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const title = getParameterByName('title');
+            const description = getParameterByName('description');
+            const accountNumber = getParameterByName('account_number');
+            const accountHolder = getParameterByName('account_holder');
+            const transactionQty = getParameterByName('transaction_qty');
+            const mobilePhone = getParameterByName('mobile_phone');
+            const email = getParameterByName('email');
+            
+            // Perbarui elemen-elemen di output.html
+            if (title) document.getElementById('title-out').value = title;
+            if (description) document.getElementById('description-out').value = description;
+            
+            // Asumsi: Harga per unit adalah £800 (dari value Title di input.html)
+            const basePrice = 800; 
+            const total = basePrice * (parseInt(transactionQty) || 1);
+            
+            // Catatan: Mata uang (£) hanya contoh
+            document.getElementById('total-amount-out').textContent = `£${total}`; 
+            
+            // Pay to dan Account No mengambil data yang sama dari input.html
+            if (accountNumber) document.getElementById('pay-to-out').value = accountNumber;
+            if (accountNumber) document.getElementById('account-no-out').value = accountNumber;
+            
+            if (accountHolder) document.getElementById('account-holder-out').value = accountHolder;
+            if (mobilePhone) document.getElementById('mobile-phone-out').value = mobilePhone;
+            if (email) document.getElementById('email-out').value = email;
+            
+            // Secara default, centang checkbox mobile dan email jika ada di data URL
+            if (getParameterByName('send_mobile') === 'yes') {
+                 document.getElementById('send-mobile-out').checked = true;
+            } else {
+                 document.getElementById('send-mobile-out').checked = false;
+            }
+        });
+    </script>
+</body>
+</html>
