@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Formulir Kontak</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --accent:#4f46e5;
+      --muted:#6b7280;
+      --success:#059669;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:linear-gradient(180deg, #eef2ff 0%, var(--bg) 100%);
+      color:#0f172a;
+      padding:28px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+    }
+    .container{
+      width:100%;
+      max-width:920px;
+      background:var(--card);
+      border-radius:12px;
+      box-shadow:0 8px 30px rgba(15,23,42,0.08);
+      padding:28px;
+      display:grid;
+      grid-template-columns: 1fr 380px;
+      gap:24px;
+    }
+    @media (max-width:900px){
+      .container{grid-template-columns:1fr; padding:18px;}
+    }
+    h1{margin:0 0 6px; font-size:20px;}
+    p.lead{margin:0 0 18px; color:var(--muted); font-size:14px;}
+    form{display:flex; flex-direction:column; gap:12px;}
+    .field{display:flex; flex-direction:column; gap:6px;}
+    label{font-size:13px; font-weight:600;}
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    textarea,
+    select{
+      padding:10px 12px;
+      border:1px solid #e6e9ee;
+      border-radius:8px;
+      font-size:14px;
+      background:#fff;
+      outline: none;
+      transition:box-shadow .15s, border-color .15s;
+    }
+    input:focus, textarea:focus, select:focus{
+      border-color: rgba(79,70,229,0.9);
+      box-shadow: 0 6px 18px rgba(79,70,229,0.08);
+    }
+    .small{font-size:13px; color:var(--muted);}
+    .two-col{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+    .actions{display:flex; gap:10px; align-items:center; margin-top:6px;}
+    .btn{
+      padding:10px 14px;
+      border-radius:10px;
+      border:0;
+      background:var(--accent);
+      color:#fff;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow: 0 6px 20px rgba(79,70,229,0.12);
+    }
+    .btn.secondary{
+      background:transparent;
+      border:1px solid #e6e9ee;
+      color:var(--muted);
+      box-shadow:none;
+    }
+    .card-right{
+      padding:16px;
+      border-radius:10px;
+      background:linear-gradient(180deg,#fbfdff,#fff);
+      border:1px solid #f1f5f9;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .summary{font-size:14px; color:var(--muted);}
+    .tags{display:flex; gap:8px; flex-wrap:wrap;}
+    .tag{background:#f1f5ff; color:#3730a3; padding:6px 10px; border-radius:999px; font-size:13px;}
+    .file-input{font-size:13px; color:var(--muted);}
+    .error{color:#ef4444; font-size:13px; display:none;}
+    .success-message{display:none; padding:12px; border-radius:8px; background:#ecfdf5; color:var(--success); border:1px solid rgba(5,150,105,0.15);}
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <div>
+      <h1>Form Kontak</h1>
+      <p class="lead">Silakan isi formulir berikut. Semua field dengan <span style="color:#ef4444">*</span> wajib diisi.</p>
+
+      <form id="contactForm" novalidate>
+        <div class="two-col">
+          <div class="field">
+            <label for="firstName">Nama Depan <span style="color:#ef4444">*</span></label>
+            <input id="firstName" name="firstName" type="text" placeholder="Budi" required>
+            <div class="error" data-for="firstName">Nama depan wajib diisi.</div>
+          </div>
+
+          <div class="field">
+            <label for="lastName">Nama Belakang</label>
+            <input id="lastName" name="lastName" type="text" placeholder="Santoso">
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="field">
+            <label for="email">Email <span style="color:#ef4444">*</span></label>
+            <input id="email" name="email" type="email" placeholder="nama@contoh.com" required>
+            <div class="error" data-for="email">Masukkan email yang valid.</div>
+          </div>
+
+          <div class="field">
+            <label for="phone">Telepon</label>
+            <input id="phone" name="phone" type="tel" placeholder="+62 812-3456-7890" pattern="^\+?\d[\d\s\-]{5,}$">
+            <div class="small">Format bebas; gunakan kode negara jika perlu.</div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="field">
+            <label for="dob">Tanggal Lahir</label>
+            <input id="dob" name="dob" type="date">
+          </div>
+
+          <div class="field">
+            <label for="gender">Jenis Kelamin</label>
+            <select id="gender" name="gender">
+              <option value="">-- Pilih --</option>
+              <option value="male">Laki-laki</option>
+              <option value="female">Perempuan</option>
+              <option value="other">Lainnya</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Minat</label>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <label><input type="checkbox" name="interest" value="web"> Web</label>
+            <label><input type="checkbox" name="interest" value="mobile"> Mobile</label>
+            <label><input type="checkbox" name="interest" value="data"> Data</label>
+            <label><input type="checkbox" name="interest" value="other"> Lainnya</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="message">Pesan <span style="color:#ef4444">*</span></label>
+          <textarea id="message" name="message" rows="5" placeholder="Tulis pesan Anda..." required></textarea>
+          <div class="error" data-for="message">Pesan tidak boleh kosong.</div>
+        </div>
+
+        <div class="field">
+          <label for="resume">Lampirkan file (opsional)</label>
+          <input id="resume" name="resume" type="file" accept=".pdf,.doc,.docx,image/*">
+          <div class="small file-input">PDF atau gambar disarankan; maksimal ukuran tergantung server.</div>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:10px; margin-top:6px;">
+          <button class="btn" type="submit">Kirim</button>
+          <button class="btn secondary" type="button" id="resetBtn">Reset</button>
+          <div class="small" style="margin-left:auto;">atau tekan <kbd>Esc</kbd> untuk reset</div>
+        </div>
+
+        <div class="success-message" id="successBox">Terima kasih! Formulir berhasil disiapkan untuk dikirim (demo).</div>
+      </form>
+    </div>
+
+    <aside class="card-right" aria-label="Ringkasan">
+      <div>
+        <strong>Ringkasan</strong>
+        <p class="summary">Formulir ini berisi field kontak umum, validasi sederhana, dan input file. Cocok untuk kontak, pendaftaran, atau pengumpulan informasi pengguna.</p>
+      </div>
+
+      <div>
+        <strong>Fitur</strong>
+        <div class="tags">
+          <span class="tag">Validasi HTML5</span>
+          <span class="tag">Responsive</span>
+          <span class="tag">Upload file</span>
+          <span class="tag">Aksesibilitas</span>
+        </div>
+      </div>
+
+      <div>
+        <strong>Penggunaan</strong>
+        <ol style="padding-left:18px; margin:6px 0 0; color:var(--muted); font-size:14px;">
+          <li>Buka file `form.html` di browser.</li>
+          <li>Untuk mengirim ke server, tambahkan atribut <code>action="URL" method="POST" enctype="multipart/form-data"</code> pada tag &lt;form&gt;.</li>
+          <li>Sesuaikan field sesuai kebutuhan (tambahkan hidden input jika perlu).</li>
+        </ol>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    // Validasi sederhana & demo "kirim" tanpa reload
+    (function(){
+      const form = document.getElementById('contactForm');
+      const successBox = document.getElementById('successBox');
+      const resetBtn = document.getElementById('resetBtn');
+
+      function showError(input, show){
+        const errEl = document.querySelector('.error[data-for="'+input.id+'"]');
+        if(!errEl) return;
+        errEl.style.display = show ? 'block' : 'none';
+      }
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+
+        // Reset error UI
+        document.querySelectorAll('.error').forEach(el=>el.style.display='none');
+        successBox.style.display='none';
+
+        // Basic checks
+        let ok = true;
+        const firstName = form.firstName;
+        const email = form.email;
+        const message = form.message;
+
+        if(!firstName.value.trim()){ showError(firstName, true); ok=false; }
+        if(!email.checkValidity()){ showError(email, true); ok=false; }
+        if(!message.value.trim()){ showError(message, true); ok=false; }
+
+        if(!ok) {
+          // focus first invalid
+          const firstInvalid = document.querySelector('.error[style*="block"]');
+          if(firstInvalid){
+            const id = firstInvalid.getAttribute('data-for');
+            document.getElementById(id).focus();
+          }
+          return;
+        }
+
+        // Jika ingin mengirim ke server, gunakan fetch() atau biarkan form submit secara normal.
+        // Demo: tampilkan pesan sukses
+        successBox.textContent = 'Terima kasih, formulir berhasil diproses (demo).';
+        successBox.style.display = 'block';
+
+        // contoh: membaca data form (FormData)
+        const data = new FormData(form);
+        // untuk debugging: tampilkan ke console (hapus di produksi)
+        console.log('Form data:');
+        for(const [k,v] of data.entries()){
+          console.log(k, v);
+        }
+
+        // Jika ingin benar-benar mengirim: uncomment baris berikut
+        // form.submit();
+      });
+
+      resetBtn.addEventListener('click', () => {
+        form.reset();
+        document.querySelectorAll('.error').forEach(el=>el.style.display='none');
+        successBox.style.display='none';
+      });
+
+      // Esc = reset
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape'){
+          form.reset();
+          document.querySelectorAll('.error').forEach(el=>el.style.display='none');
+          successBox.style.display='none';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
