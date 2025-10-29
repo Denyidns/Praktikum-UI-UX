@@ -1,0 +1,73 @@
+body {
+    background-color: cyan;
+    color: black;
+}
+
+h1 {
+    text-align: center;
+}
+
+p {
+    background: #f2f5d5;
+    width: auto;
+    height: auto;
+    padding: 20px;
+    border: 5px solid gray;
+    margin: 20px;
+    text-align: justify;
+}
+.img {
+    border: 5px solid black;
+    border-radius: 25px;
+    display: block;
+    /* width: fit-content;*/
+    margin-left: auto;
+    margin-right: auto;
+}
+.foto {
+    background-color: cyan;
+    display: flex;
+    gap: -1em;
+    & img {
+        width: 200px;
+    };
+
+}
+ol{
+    background: #f2f5d5;
+    width: auto;
+    height: auto;
+    padding: 20px;
+    border: 5px solid gray;
+    margin: 20px;
+    text-align: justify;
+}
+.promo {
+    text-align: center;
+    color: black;
+}
+
+.cod {
+    margin: auto;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cod p{
+    background-color: cyan;
+    border: 5px dotted black;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+}
+
+#tombol {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: springgreen;
+    border: 2px solid springgreen;
+    color: black;
+    border-radius: 7px;
+}
