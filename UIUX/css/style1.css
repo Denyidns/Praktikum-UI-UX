@@ -1,0 +1,21 @@
+*{
+    margin: 0;
+}
+img {
+    width: 5%;
+    border-radius: 20%;
+}
+nav {
+    background-color: aqua;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+nav ul {
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+}
+nav li {
+    padding: 20px;
+}
